@@ -91,7 +91,7 @@ export const getSampleTemplate = (): Template => ({
 	columns: ["name", "photo", "age", "sex", "weight", "breed", "owner"],
 });
 
-export const cloneDeep = (obj) => JSON.parse(JSON.stringify(obj));
+export const cloneDeep = (obj: any) => JSON.parse(JSON.stringify(obj));
 
 export const downloadJsonFile = (json: any, title: string) => {
 	if (typeof window !== "undefined") {
@@ -243,16 +243,16 @@ const get = (obj: any, path: string | number, defaultValue?: any) => {
 
 const getLabelLengthInPage = (template: Template) => {
 	if (!isMultiLabel(template)) return 1;
-	const rowNums = template.columns.map((column) =>
+	const rowNums = template!.columns!.map((column) =>
 		Number(column.match(/^{\d+}/)![0].replace(/{|}/g, ""))
 	);
 	return Math.max(...rowNums);
 };
 
 const isMultiLabel = (template: Template) => {
-	if (template.columns.length === 0) return false;
+	if (template!.columns!.length === 0) return false;
 	const regex = RegExp(/^{\d+}.*/);
-	return regex.test(template.columns[0]);
+	return regex.test(template!.columns![0]);
 };
 
 export const normalizeDatas = (
